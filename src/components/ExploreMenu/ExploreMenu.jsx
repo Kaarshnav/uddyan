@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { menu_list } from "../../assets/assets";
 
-const ExploreMenu = (props) => {
-  const { category, setCategory } = props;
+const ExploreMenu = ({ category, setCategory }) => {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState(null);
 
@@ -12,32 +11,44 @@ const ExploreMenu = (props) => {
     setCategory(categoryName);
     navigate('/products', { state: { category: categoryName } });
   };
+
   return (
-    <div className="flex flex-col items-center px-4 py-8">
-      <h1 className="text-2xl font-bold text-center">Explore Our Range</h1>
-      <p className="text-center text-gray-600">
-        Choose plants for your home from our great collection of exotic plants
-        from your nearest stores, and enhance your home decor.
-      </p>
-      <div className="grid grid-cols-2 gap-4 mt-8">
-        {menu_list.map((item, index) => {
-          return (
-            <div
-              onClick={() => handleCategoryClick(item.menu_name)}
-              key={index}
-              className={`flex flex-col items-center p-4 rounded-lg cursor-pointer hover:bg-gray-100 ${selectedCategory === item.menu_name ? 'bg-gray-200' : ''}`}
-            >
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-2xl md:text-3xl font-bold text-center mb-6 text-gray-800">
+        Explore Our Range
+      </h1>
+      
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 justify-center">
+        {menu_list.map((item, index) => (
+          <div
+            key={index}
+            onClick={() => handleCategoryClick(item.menu_name)}
+            className={`
+              flex flex-col items-center justify-center 
+              p-3 rounded-xl 
+              transition-all duration-300 ease-in-out
+              cursor-pointer 
+              hover:scale-105 hover:shadow-md
+              ${selectedCategory === item.menu_name 
+                ? 'bg-blue-100 ring-2 ring-blue-300' 
+                : 'bg-white hover:bg-gray-50'}
+            `}
+          >
+            <div className="w-full aspect-square mb-2 overflow-hidden rounded-lg">
               <img
                 src={item.menu_image}
-                alt={" menu item"}
-                className="w-32 h-32 object-cover object-center"
+                alt={item.menu_name}
+                className="w-full h-full object-cover object-center rounded-lg transition-transform duration-300 group-hover:scale-110"
               />
-              <p className="text-center text-sm mt-2">{item.menu_name}</p>
             </div>
-          );
-        })}
+            <p className="text-xs sm:text-sm text-center text-gray-700 font-medium truncate w-full">
+              {item.menu_name}
+            </p>
+          </div>
+        ))}
       </div>
-      <hr className="w-full border-t border-gray-200 my-4" />
+      
+      <hr className="w-full border-t border-gray-200 my-6 opacity-50" />
     </div>
   );
 };

@@ -12,7 +12,9 @@ const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/get-product', {
+        const pincode = sessionStorage.getItem('pincode') || '';
+        const apiUrl = `http://localhost:8080/api/get-product?pincode=${pincode}`;
+        const response = await fetch(apiUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
