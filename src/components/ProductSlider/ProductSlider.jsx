@@ -9,6 +9,7 @@ const ProductSlider = ({ categories = [], attributes = [], title = "Featured Pro
   const [error, setError] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const VISIBLE_PRODUCTS = 5;
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   useEffect(() => {
     fetchProducts();
@@ -73,6 +74,35 @@ const ProductSlider = ({ categories = [], attributes = [], title = "Featured Pro
     }
     return items;
   };
+  const addToCart = async (productId) => {
+    try {
+      const cartId = sessionStorage.getItem('cartId');
+      const apiUrl = `http://localhost:8080/api/cart/updateCart?cartId=${cartId}`;
+
+      const response = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          productId,
+          action: 'ADD',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add product to cart');
+      }
+
+      // Handle success response (e.g., update UI or show success message)
+      setShowSuccessMessage(true);
+      setTimeout(() => setShowSuccessMessage(false), 3000); // Hide success message after 3 seconds
+      console.log('Product added to cart successfully');
+    } catch (err) {
+      // Handle error response (e.g., show error message)
+      console.error('Error adding product to cart:', err.message);
+    }
+  };
 
   if (loading) {
     return (
@@ -92,6 +122,11 @@ const ProductSlider = ({ categories = [], attributes = [], title = "Featured Pro
 
   return (
     <div className="w-full py-8 px-4">
+      {showSuccessMessage && (
+        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-100 text-green-800 px-4 py-2 rounded-md shadow-md">
+          Product added to cart successfully
+        </div>
+      )}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800">{title}</h2>
         <button 
@@ -163,7 +198,7 @@ const ProductSlider = ({ categories = [], attributes = [], title = "Featured Pro
                     </div>
 
                     {/* Action Button */}
-                    <button className="mt-3 w-full bg-green-500 text-white py-1.5 px-3 rounded-full flex items-center justify-center gap-1 hover:bg-green-600 transition-colors text-sm">
+                    <button onClick={() => addToCart(product.productId)} className="mt-3 w-full bg-green-500 text-white py-1.5 px-3 rounded-full flex items-center justify-center gap-1 hover:bg-green-600 transition-colors text-sm">
                       <ShoppingCart className="w-4 h-4" />
                       Add to Cart
                     </button>

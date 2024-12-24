@@ -6,6 +6,7 @@ import Cart from "./pages/Cart/Cart";
 import Products from "./pages/Products/Products";
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
 import PincodeModal from "./components/PincodeModal/PincodeModal";
+import CheckoutPage from "./components/Checkout/Checkout";
 
 const App = () => {
   const [csrfToken, setCsrfToken] = useState(null);
@@ -19,7 +20,7 @@ const App = () => {
     }
     const cartId = sessionStorage.getItem("cartId");
     if (!cartId) {
-      fetch('http://localhost:8080/cart/create-cart',{
+      fetch('http://localhost:8080/api/cart/create-cart',{
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,6 +75,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<PlaceOrder />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
     </div>
   );
