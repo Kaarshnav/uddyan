@@ -8,8 +8,6 @@ import menu_3 from "./plant_cat_3.jpeg";
 import menu_4 from "./plant_cat_4.jpg";
 import menu_5 from "./plant_cat_5.jpeg";
 import menu_6 from "./plant_cat_6.jpeg";
-import menu_7 from "./plant_cat_7.jpeg";
-import menu_8 from "./plant_cat_8.jpeg";
 
 import food_1 from "./food_1.png";
 import food_2 from "./food_2.png";
@@ -88,33 +86,25 @@ export const menu_list = [
     menu_image: menu_1,
   },
   {
-    menu_name: "Outdoor plants",
+    menu_name: "Outdoor Plants",
     menu_image: menu_2,
   },
   {
-    menu_name: "Air Purifiers",
+    menu_name: "Flowering Plants",
     menu_image: menu_3,
   },
   {
-    menu_name: "Flowers",
+    menu_name: "Pots and Planters",
     menu_image: menu_4,
   },
   {
-    menu_name: "Budget friendly",
+    menu_name: "Manure and Fertilisers",
     menu_image: menu_5,
   },
   {
     menu_name: "Exotic",
     menu_image: menu_6,
-  },
-  {
-    menu_name: "Low Maintenance",
-    menu_image: menu_7,
-  },
-  {
-    menu_name: "Aesthetic",
-    menu_image: menu_8,
-  },
+  }
 ];
 
 export const food_list = [

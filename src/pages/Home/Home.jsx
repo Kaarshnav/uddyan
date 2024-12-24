@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import "./Home.css";
-import Header from "../../components/Header/Header";
 import ExploreMenu from "../../components/ExploreMenu/ExploreMenu";
+import ProductSlider from "../../components/ProductSlider/ProductSlider";
+
 const Home = () => {
   const [category, setCategory] = useState("All");
   return (
-    <div>
-      <Header />
+    <div className="home-container">
       <ExploreMenu category={category} setCategory={setCategory} />
+      <ProductSlider categories={[]} attributes={[]} title="BestSelling Products" />
+      <ProductSlider categories={[]} attributes={[]} title="Trending Products" />
+
     </div>
   );
 };
